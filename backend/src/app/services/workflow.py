@@ -17,6 +17,7 @@ Nothing is patched in place.
 from __future__ import annotations
 
 import json
+import threading
 import time
 from datetime import datetime
 
@@ -25,7 +26,7 @@ from fastapi import HTTPException
 from src.app.pipeline.ablation import run_ablation
 from src.app.pipeline.cases import load_truth
 from src.app.pipeline.persist import persist_governed, replace
-from src.app.pipeline.reference import CLAIMING, LABEL_ACTION
+from src.app.pipeline.reference import CLAIMING, LABEL_ACTION, now_aest
 from src.app.pipeline.stages import run_pipeline
 from src.app.services import db
 from src.settings import settings
@@ -35,7 +36,7 @@ ACTIONS = set(LABEL_ACTION.values())
 
 
 def _now() -> datetime:
-    return datetime.now().replace(microsecond=0)
+    return now_aest()
 
 
 def _audit(cur, actor: str, action: str, subject: str, outcome: str, detail: dict | str) -> None:
@@ -120,18 +121,34 @@ def decide_proposal(proposal_id: str, actor: str, approve: bool, note: str = "")
         approved = approved_contracts(cur)
         w0 = time.perf_counter()
         result = run_pipeline(settings.raw_dir, approved=approved)
-        ablation = run_ablation(settings.raw_dir, result, approved)
         wall_ms = (time.perf_counter() - w0) * 1000
         n = int(cur.execute("SELECT count(*) FROM runs").fetchall()[0][0]) + 1
         run = {"run_id": f"RUN-{n:04d}", "kind": "reprocess", "trigger": f"{proposal_id} approved by {actor}",
                "started_at": now, "git_sha": settings.git_sha, "approved": sorted(approved), "wall_ms": round(wall_ms, 1)}
         persist_governed(cur, result, run, load_truth(settings.truth_path), settings.raw_dir)
-        replace(cur, "ablation", ablation)
         after = _snapshot(cur)
         _audit(cur, actor, "approve", proposal_id, "done", {"run_id": run["run_id"], "contract": version,
                                                            "before": before, "after": after})
-        return {"proposal_id": proposal_id, "status": "approved", "run_id": run["run_id"], "wall_ms": run["wall_ms"],
-                "before": before, "after": after}
+    # The ablation re-runs the quarter once per control - seconds on a laptop,
+    # half a minute on the demo's half-CPU. The approval returns as soon as
+    # the governed tables are replaced; the ablation follows in the background
+    # and the Value page reads it when it lands.
+    _refresh_ablation(result, approved, run["run_id"])
+    return {"proposal_id": proposal_id, "status": "approved", "run_id": run["run_id"], "wall_ms": run["wall_ms"],
+            "before": before, "after": after, "ablation": "refreshing"}
+
+
+def _refresh_ablation(result, approved: frozenset[str], run_id: str, wait: bool = False) -> None:
+    def work() -> None:
+        ablation = run_ablation(settings.raw_dir, result, approved)
+        with db.writing() as cur:
+            latest = cur.execute("SELECT max(run_id) FROM runs").fetchall()[0][0]
+            if latest == run_id:  # a reset or a later run has superseded this one
+                replace(cur, "ablation", ablation)
+    if wait:
+        work()
+    else:
+        threading.Thread(target=work, daemon=True, name=f"ablation-{run_id}").start()
 
 
 def reset(actor: str) -> dict:

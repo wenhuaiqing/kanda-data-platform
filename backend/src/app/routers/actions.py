@@ -8,12 +8,12 @@ import asyncio
 import json
 import threading
 import time
-from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
 
 from src.app.pipeline import access
+from src.app.pipeline.reference import now_aest
 from src.app.services import db, llm, policy, policy_assistant, replay, sql_validator, triage
 from src.app.services.rate_limit import limit_replay, limit_triage
 
@@ -53,7 +53,7 @@ def _triage(exception_id: str, engine: str) -> dict:
     run_id = f"TR-{int(time.time() * 1000) % 10**10:010d}"
     with db.writing() as cur:
         cur.execute("INSERT INTO triage_runs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
-            run_id, datetime.now().replace(microsecond=0), exception_id, run["engine"], run["model"], run["ms"],
+            run_id, now_aest(), exception_id, run["engine"], run["model"], run["ms"],
             run["steps"], json.dumps(run["result"]), json.dumps(grade), json.dumps(run["trace"], default=str)])
     return {"run_id": run_id, **{k: run[k] for k in ("engine", "model", "result", "trace", "steps", "ms")},
             "grade": grade, "label": label, "fallback_reason": fallback_reason}
@@ -124,7 +124,7 @@ def _ask(question: str) -> dict:
                   "note": f"The model could not answer ({type(exc).__name__}); these are the sections retrieval found."}
     with db.writing() as cur:
         cur.execute("INSERT INTO policy_answers VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [
-            datetime.now().replace(microsecond=0), question, result["engine"], result["model"],
+            now_aest(), question, result["engine"], result["model"],
             ",".join(h["section_id"] for h in result["sections"]), ",".join(result["citations"]), result["grounded"],
             result["ms"]])
     return result

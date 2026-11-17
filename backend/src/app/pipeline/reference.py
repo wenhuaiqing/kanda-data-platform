@@ -29,6 +29,13 @@ MONTHS = ["2026-07", "2026-08", "2026-09"]
 TZ_LABEL = "AEST"
 UTC_OFFSET_HOURS = 10
 
+
+def now_aest():
+    """Wall-clock time in Brisbane, naive like every other timestamp here. The
+    container's clock is UTC; Queensland is UTC+10 all year, so no zone database."""
+    from datetime import datetime, timedelta, timezone
+    return datetime.now(timezone(timedelta(hours=UTC_OFFSET_HOURS))).replace(tzinfo=None, microsecond=0)
+
 REGIONS = ["Brisbane North", "Brisbane South", "Gold Coast", "Sunshine Coast", "Toowoomba"]
 REGION_CODE = {"Brisbane North": "BN", "Brisbane South": "BS", "Gold Coast": "GC", "Sunshine Coast": "SC",
                "Toowoomba": "TW"}
