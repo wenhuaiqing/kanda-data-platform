@@ -1,0 +1,86 @@
+# User acceptance scenarios, written the way the people signing off would say
+# them. Each runs as a query against the governed tables on every build and
+# after every reprocess; the page shows the number it found, not a tick.
+scenarios:
+  - id: UAT-01
+    owner: Finance (claiming)
+    scenario: Nothing is claimed without one check-in and one check-out.
+    sql: SELECT count(*) FROM fact_shift WHERE status = 'claimable' AND evidence IS DISTINCT FROM 'complete'
+    expect: 0
+    measures: claimable services without complete evidence
+  - id: UAT-02
+    owner: Compliance
+    scenario: No service by a worker whose screening had expired is claimable.
+    sql: >
+      SELECT count(*) FROM fact_shift s JOIN dim_worker w USING (worker_id)
+      WHERE s.status = 'claimable' AND s.service_date > w.screening_expiry
+    expect: 0
+    measures: claimable services after the worker's screening expired
+  - id: UAT-03
+    owner: Finance (claiming)
+    scenario: Nothing is claimed above its item's price limit.
+    sql: SELECT count(*) FROM fact_shift WHERE status LIKE 'claimable%' AND rate > price_limit
+    expect: 0
+    measures: claimable services above the price limit
+  - id: UAT-04
+    owner: Finance (claiming)
+    scenario: Nothing is claimed for more time than the evidence supports, beyond the tolerance.
+    sql: >
+      SELECT count(*) FROM fact_shift WHERE status = 'claimable'
+      AND rostered_min - evidenced_min > greatest(15, rostered_min * 0.10)
+    expect: 0
+    measures: claimable services rostered beyond the evidenced time
+  - id: UAT-05
+    owner: Data platform team
+    scenario: Every roster row that landed is a service or in quarantine.
+    sql: >
+      SELECT (SELECT sum(rows) FROM raw_files WHERE feed = 'rostering.shifts')
+      - (SELECT count(*) FROM fact_shift) - (SELECT count(*) FROM quarantine WHERE feed = 'rostering.shifts')
+    expect: 0
+    measures: roster rows unaccounted for
+  - id: UAT-06
+    owner: Data platform team
+    scenario: Every phone event that landed is in the event table, in quarantine, or recorded as a duplicate.
+    sql: >
+      SELECT (SELECT sum(rows) FROM raw_files WHERE feed = 'mobile.visit_events')
+      - (SELECT count(*) FROM fact_visit_event) - (SELECT count(*) FROM quarantine WHERE feed = 'mobile.visit_events')
+      - (SELECT count(*) FROM event_duplicates)
+    expect: 0
+    measures: phone events unaccounted for
+  - id: UAT-07
+    owner: Privacy officer
+    scenario: No visit note in the governed tables carries a phone number or an NDIS number.
+    sql: >
+      SELECT count(*) FROM fact_visit_event
+      WHERE regexp_matches(note_masked, '\(0[0-9]\) ?[0-9]{4} ?[0-9]{4}') OR regexp_matches(note_masked, '[0-9]{9}')
+    expect: 0
+    measures: notes with a phone or NDIS number
+  - id: UAT-08
+    owner: Privacy officer
+    scenario: No governed table has a column for a name, date of birth, phone, address or NDIS number.
+    sql: >
+      SELECT count(*) FROM information_schema.columns
+      WHERE column_name IN ('given_name', 'family_name', 'date_of_birth', 'phone', 'address', 'ndis_number', 'screening_id')
+    expect: 0
+    measures: personal columns in the database
+  - id: UAT-09
+    owner: Coordinator, Brisbane North
+    scenario: My view shows my region's services and no one else's.
+    sql: >
+      SELECT count(*) FROM coordinator_bn.shifts v JOIN fact_shift s USING (shift_id) WHERE s.region <> 'Brisbane North'
+    expect: 0
+    measures: rows from another region in the coordinator's view
+  - id: UAT-10
+    owner: Finance (claiming)
+    scenario: Every held service has an exception with its reason.
+    sql: >
+      SELECT count(*) FROM fact_shift s LEFT JOIN exceptions e USING (shift_id)
+      WHERE s.status = 'held' AND (e.reason IS NULL OR e.reason = '')
+    expect: 0
+    measures: held services without a reason
+  - id: UAT-11
+    owner: Plan managers
+    scenario: No client's claims this quarter exceed what was left of their budget.
+    sql: SELECT count(*) FROM dim_plan WHERE claimed_in_period > budget_at_period_start
+    expect: 0
+    measures: clients claimed beyond their budget

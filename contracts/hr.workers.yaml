@@ -1,0 +1,26 @@
+# Data contract: support workers from the HR system.
+id: hr.workers
+source: HR and payroll system
+owner: People and culture
+steward: Data platform team
+schedule: daily 02:00, full extract
+freshness_hours: 26
+key: [worker_id]
+consumers:
+  - team: Compliance
+    needs: The screening expiry of every worker, so no service by a lapsed worker is claimed
+classification: Restricted for names; worker id, region and screening expiry are internal.
+versions:
+  - version: 1
+    status: approved
+    effective_from: 2026-07-01
+    approved_by: People and culture, Compliance
+    fields:
+      worker_id:        {type: string, required: true, pattern: "^W\\d{4}$", class: internal}
+      given_name:       {type: string, required: true, class: personal}
+      family_name:      {type: string, required: true, class: personal}
+      region:           {type: string, required: true, class: internal}
+      employment:       {type: string, required: true, class: internal, values: [permanent, casual]}
+      screening_id:     {type: string, required: true, class: personal}
+      screening_expiry: {type: date, required: true, class: internal}
+      device_id:        {type: string, required: true, class: internal}

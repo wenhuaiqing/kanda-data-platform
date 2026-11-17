@@ -1,0 +1,25 @@
+# Data contract: client funding - NDIS plans and Support at Home agreements.
+id: crm.plans
+source: CRM (funding module)
+owner: Client services
+steward: Data platform team
+schedule: daily 01:00, full extract
+freshness_hours: 26
+key: [plan_id]
+consumers:
+  - team: Finance (claiming)
+    needs: The funding period and the budget left, so nothing is claimed outside either
+classification: Internal. Budgets are the client's, shown only in aggregate outside their region.
+versions:
+  - version: 1
+    status: approved
+    effective_from: 2026-07-01
+    approved_by: Client services, Finance
+    fields:
+      plan_id:    {type: string, required: true, class: internal}
+      client_id:  {type: string, required: true, pattern: "^C\\d{5}$", class: internal}
+      funding:    {type: string, required: true, class: internal, values: [NDIS, SAH]}
+      start_date: {type: date, required: true, class: internal}
+      end_date:   {type: date, required: true, class: internal}
+      budget_remaining_at_2026_07_01: {type: money, required: true, min: 0, class: internal}
+      management: {type: string, required: true, class: internal, values: [agency, plan, provider]}

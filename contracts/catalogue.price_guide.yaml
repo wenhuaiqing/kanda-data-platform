@@ -1,0 +1,25 @@
+# Data contract: the support catalogue and its price limits (synthetic).
+id: catalogue.price_guide
+source: Published price guide, loaded by Finance
+owner: Finance
+steward: Data platform team
+schedule: on change (annual review, and any mid-year update)
+freshness_hours: null
+key: [item_code, effective_from]
+consumers:
+  - team: Finance (claiming)
+    needs: The price limit for an item on the date of service
+classification: Public.
+versions:
+  - version: 1
+    status: approved
+    effective_from: 2026-07-01
+    approved_by: Finance
+    fields:
+      item_code:            {type: string, required: true, class: public}
+      funding:              {type: string, required: true, class: public, values: [NDIS, SAH]}
+      support:              {type: string, required: true, class: public}
+      description:          {type: string, required: true, class: public}
+      time_band:            {type: string, required: true, class: public, values: [WD, EVE, SAT, SUN]}
+      price_limit_per_hour: {type: money, required: true, min_exclusive: 0, class: public}
+      effective_from:       {type: date, required: true, class: public}

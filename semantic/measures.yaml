@@ -1,0 +1,59 @@
+# The published measures: one definition of each number, with the SQL that
+# runs here and the DAX that would sit in the Power BI semantic model over the
+# same star schema. The page evaluates the SQL live; the DAX is the same
+# definition, written for the model, and is not executed here.
+measures:
+  - id: services_delivered
+    name: Services rostered
+    format: int
+    description: Roster entries that loaded, cancelled or not.
+    sql: SELECT count(*) FROM fact_shift
+    dax: Services Rostered = COUNTROWS ( fact_shift )
+  - id: claimable_rate
+    name: Claimable without a person
+    format: pct
+    description: Share of services (not cancelled with notice) that passed every check.
+    sql: SELECT count(*) FILTER (WHERE status LIKE 'claimable%') / count(*) FILTER (WHERE status <> 'not_claimable') FROM fact_shift
+    dax: Claimable Rate = DIVIDE ( CALCULATE ( COUNTROWS ( fact_shift ), fact_shift[status] IN { "claimable", "claimable_cancellation" } ), CALCULATE ( COUNTROWS ( fact_shift ), fact_shift[status] <> "not_claimable" ) )
+  - id: claim_value
+    name: Claimable value
+    format: aud
+    description: What the checks cleared to claim this quarter.
+    sql: SELECT sum(claim_amount) FROM fact_shift
+    dax: Claimable Value = SUM ( fact_shift[claim_amount] )
+  - id: held_services
+    name: Services held
+    format: int
+    description: Services a check has held for a person.
+    sql: SELECT count(*) FROM fact_shift WHERE status = 'held'
+    dax: Services Held = CALCULATE ( COUNTROWS ( fact_shift ), fact_shift[status] = "held" )
+  - id: held_value
+    name: Held before claiming
+    format: aud
+    description: Claim value of the services held, as rostered.
+    sql: SELECT sum(amount) FROM fact_shift WHERE status = 'held'
+    dax: Held Value = CALCULATE ( SUM ( fact_shift[amount] ), fact_shift[status] = "held" )
+  - id: evidenced_hours
+    name: Hours evidenced
+    format: num
+    description: Hours between check-in and check-out across services with complete evidence.
+    sql: SELECT sum(evidenced_min) / 60.0 FROM fact_shift WHERE evidence = 'complete'
+    dax: Hours Evidenced = DIVIDE ( CALCULATE ( SUM ( fact_shift[evidenced_min] ), fact_shift[evidence] = "complete" ), 60 )
+  - id: evidence_on_time
+    name: Evidence in by 06:00
+    format: pct
+    description: Share of phone events that arrived before the nightly claim run's cut-off.
+    sql: SELECT count(*) FILTER (WHERE NOT after_cutoff) / count(*) FROM fact_visit_event
+    dax: Evidence On Time = DIVIDE ( CALCULATE ( COUNTROWS ( fact_visit_event ), fact_visit_event[after_cutoff] = FALSE () ), COUNTROWS ( fact_visit_event ) )
+  - id: quarantined_rows
+    name: Rows in quarantine
+    format: int
+    description: Rows that broke their feed's contract.
+    sql: SELECT count(*) FROM quarantine
+    dax: Rows Quarantined = COUNTROWS ( quarantine )
+  - id: budget_used
+    name: Budget used this quarter
+    format: pct
+    description: Claimed this quarter as a share of what was left at its start, across all clients.
+    sql: SELECT sum(claimed_in_period) / sum(budget_at_period_start) FROM dim_plan
+    dax: Budget Used = DIVIDE ( SUM ( dim_plan[claimed_in_period] ), SUM ( dim_plan[budget_at_period_start] ) )

@@ -1,0 +1,49 @@
+# Data contract: check-in and check-out events from support workers' phones.
+id: mobile.visit_events
+source: Mobile workforce app (vendor-hosted), pushed to the landing zone
+owner: Rostering and coordination
+steward: Data platform team
+vendor: Mobile app vendor (synthetic)
+schedule: streamed; landed every 15 minutes
+freshness_hours: 1
+evidence_cutoff: 06:00 the day after the service, for the nightly claim run
+key: [event_id]
+natural_key: [shift_id, event_type, ts]
+consumers:
+  - team: Finance (claiming)
+    needs: Evidence that each service was delivered, and for how long
+  - team: Compliance
+    needs: Who was where, when - no worker in two places at once
+classification: >
+  Internal, except the note, which is free text and may contain anything. The
+  note is scanned and masked (phone numbers, NDIS numbers, the client's names)
+  before it leaves the landing zone.
+versions:
+  - version: 1
+    status: approved
+    effective_from: 2026-07-01
+    approved_by: Rostering, Finance, Data platform team
+    on_unknown_field: quarantine
+    fields:
+      event_id:    {type: string, required: true, class: internal}
+      app_version: {type: string, required: true, class: internal}
+      device_id:   {type: string, required: true, class: internal}
+      worker_id:   {type: string, required: true, pattern: "^W\\d{4}$", class: internal}
+      shift_id:    {type: string, required: true, class: internal}
+      client_id:   {type: string, required: true, class: internal}
+      event_type:  {type: string, required: true, class: internal, values: [check_in, check_out]}
+      ts_local:    {type: timestamp, required: true, class: internal}
+      note:        {type: string, required: false, class: free_text}
+      received_at: {type: timestamp, required: true, class: internal}
+  - version: 2
+    status: proposed
+    effective_from: 2026-09-08
+    reason: >
+      The vendor's release 5.0 renames worker_id to worker_ref and sends the
+      event time in UTC (ts_utc, suffixed Z) instead of local time. Version 2
+      accepts both shapes and maps the new one onto the old.
+    on_unknown_field: quarantine
+    accepts: [1]
+    mappings:
+      worker_ref: {to: worker_id}
+      ts_utc:     {to: ts_local, transform: "UTC to AEST: add 10 hours (Queensland has no daylight saving)"}

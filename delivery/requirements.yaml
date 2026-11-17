@@ -1,0 +1,70 @@
+# Requirements for P-01 to P-03, each traced to the test that proves it and the
+# acceptance scenario that shows it. backend/tests/test_delivery.py fails if a
+# requirement names a test that does not exist.
+requirements:
+  - id: REQ-01
+    statement: Every row that lands is accounted for - a governed row, a quarantine row with the rule it broke, or a recorded duplicate. Nothing is dropped.
+    source: Data platform team
+    priority: Must
+    proved_by: [test_pipeline.py::test_every_row_is_accounted_for]
+    uat: [UAT-05, UAT-06]
+  - id: REQ-02
+    statement: A service is claimable only with evidence, a cleared worker, funding in force, the right item at no more than its limit, time within tolerance and budget left.
+    source: Finance (claiming)
+    priority: Must
+    proved_by: [test_pipeline.py::test_every_seeded_defect_is_found_from_the_data, test_pipeline.py::test_nothing_clean_is_held]
+    uat: [UAT-01, UAT-02, UAT-03, UAT-04, UAT-11]
+  - id: REQ-03
+    statement: A phone resending an event, under the same id or a new one, never changes what is claimed.
+    source: Rostering and coordination
+    priority: Must
+    proved_by: [test_pipeline.py::test_duplicate_events_are_absorbed]
+    uat: [UAT-06]
+  - id: REQ-04
+    statement: A source that changes shape is quarantined at the door, and accepted only through a new contract version approved by someone other than the proposer.
+    source: Data platform team
+    priority: Must
+    proved_by: [test_pipeline.py::test_vendor_release_is_quarantined_not_dropped, test_workflow.py::test_proposer_cannot_approve, test_workflow.py::test_approval_reprocesses_from_the_landing_zone]
+    uat: [UAT-05, UAT-06]
+  - id: REQ-05
+    statement: No governed table, role view, query result or model input carries a client's name, date of birth, phone, address or NDIS number.
+    source: Privacy officer
+    priority: Must
+    proved_by: [test_privacy.py::test_no_personal_column_in_any_governed_table, test_privacy.py::test_no_note_in_gold_carries_pii, test_privacy.py::test_snapshots_carry_no_personal_information]
+    uat: [UAT-07, UAT-08]
+  - id: REQ-06
+    statement: Each role sees only its rows and its views, enforced in the database, not in the report.
+    source: Privacy officer
+    priority: Must
+    proved_by: [test_privacy.py::test_role_views_filter_rows, test_privacy.py::test_a_role_cannot_query_another_roles_views]
+    uat: [UAT-09]
+  - id: REQ-07
+    statement: A screening hold can only be escalated to compliance, and a service with no evidence cannot be claimed from the exception queue, by anyone.
+    source: Compliance
+    priority: Must
+    proved_by: [test_workflow.py::test_screening_hold_only_escalates, test_workflow.py::test_no_evidence_cannot_be_claimed]
+    uat: [UAT-02]
+  - id: REQ-08
+    statement: The agent proposes and cannot write; it is graded against the runbook on hard and adversarial cases, and every policy it cites is one it retrieved.
+    source: Head of operations
+    priority: Must
+    proved_by: [test_triage.py::test_runbook_fails_every_hard_case, test_triage.py::test_grader_marks_harm, test_triage.py::test_a_citation_not_retrieved_fails, test_workflow.py::test_the_agent_identity_cannot_decide]
+    uat: []
+  - id: REQ-09
+    statement: The policy library the agent and the assistant search says what the checks enforce.
+    source: Finance (claiming)
+    priority: Should
+    proved_by: [test_policy.py::test_policy_library_states_the_tolerances_the_checks_use, test_policy.py::test_retrieval_finds_the_governing_section]
+    uat: []
+  - id: REQ-10
+    statement: A re-run from the landing zone reproduces every governed partition byte for byte.
+    source: Data platform team
+    priority: Must
+    proved_by: [test_pipeline.py::test_build_is_deterministic]
+    uat: []
+  - id: REQ-11
+    statement: A cancellation by the client inside the notice period is claimable; one with notice is not.
+    source: Finance (claiming)
+    priority: Should
+    proved_by: [test_pipeline.py::test_short_notice_cancellations_are_claimable]
+    uat: []

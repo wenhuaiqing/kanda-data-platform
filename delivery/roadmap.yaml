@@ -1,0 +1,71 @@
+# An illustrative platform roadmap for a care provider's data team. The first
+# two items are built and running in this repository; the rest are what the
+# data and the advertisement point to, sized from this data. A real roadmap
+# comes out of the first weeks with the CIO and the business leads.
+initiatives:
+  - id: P-01
+    name: Claims assurance on the lakehouse
+    stage: Pilot ready
+    teams: [Finance, Rostering and coordination, Compliance]
+    problem: Claims are built from the roster. A roster is a plan; what the funder pays for is a service that was delivered, by a cleared worker, inside the client's funding.
+    approach: Land every source with a contract, pair each shift with the phone evidence, run nine checks before a claim leaves, and hold - never guess - with the reason and the money.
+    measure: Services claimable with nobody touching them; value held before it was claimed in error; time from service to claim.
+    ai_role: None in the checks. An agent reads held services and proposes (P-03).
+    risk_tier: Medium - money and compliance, but every check is deterministic and explained
+    next: Run it in shadow beside the current claim run for one fortnight; reconcile every difference.
+    links: [lakehouse, exceptions, value]
+  - id: P-02
+    name: Data contracts with every source owner and vendor
+    stage: In progress
+    teams: [Data platform, IT, Vendors]
+    problem: A source that changes shape without notice either breaks the platform or, worse, flows through wrongly.
+    approach: A contract per feed - owner, schedule, fields, classification, rules. Breaches go to quarantine; changes are proposed versions with evidence and a preview, approved by someone other than the proposer.
+    measure: Feeds under contract; breaches caught at the door rather than in a report; days from vendor change to approved version.
+    ai_role: None.
+    risk_tier: Low - it removes risk
+    next: Agree change-notice terms with the mobile app vendor (see V-01) and put the remaining source systems under contract.
+    links: [sources]
+  - id: P-03
+    name: Exception triage with the policy library (RAG)
+    stage: Pilot ready
+    teams: [Rostering and coordination, Finance]
+    problem: Each held service takes a coordinator time to investigate across four systems and a policy manual.
+    approach: An agent reads the held service through the same tools a coordinator would use, searches the policy library, and drafts a verdict citing the section that governs it.
+    measure: Time per held service; agreement with the coordinator's decision; harmful proposals (must stay at zero).
+    ai_role: Proposes a category, an action, its evidence and its policy citations. Cannot claim, cancel or change anything.
+    risk_tier: Medium - advisory only; screening holds cannot be released by anyone
+    next: Two-week shadow run with two regional teams; compare its proposals with what they decided.
+    links: [triage, policy, risk]
+  - id: P-04
+    name: Governed self-serve in Power BI
+    stage: Design
+    teams: [Finance, Executive, Coordinators]
+    problem: The same number is calculated differently in different reports, and access is managed report by report.
+    approach: One semantic model over the gold tables, measures defined once (SQL and DAX side by side), row-level security by role enforced in the model.
+    measure: Reports on the shared model; enquiries answered from a published measure.
+    ai_role: None at first. A question box over published measures later, if the enquiry log shows the demand.
+    risk_tier: Low - read only, over governed data
+    next: Inventory the current reports and their definitions before building anything.
+    links: [access]
+  - id: P-05
+    name: Visit notes that mention an incident
+    stage: Discovery
+    teams: [Quality and safeguards, Coordinators]
+    problem: A worker may describe a fall or an injury in a visit note without raising an incident report.
+    approach: Scan masked notes for incident language and put a candidate in front of the quality team the same day.
+    measure: Candidates raised; share confirmed as incidents; time from note to report.
+    ai_role: Classifies notes as possible incidents. A person decides, always.
+    risk_tier: High - a regulated obligation; a missed incident matters more than a false alarm, so it is tuned for recall and reviewed by people
+    next: Agree the definitions with the quality team and label a sample of real notes before any model is tried.
+    links: [risk]
+  - id: P-06
+    name: Rostering demand forecast
+    stage: Backlog
+    teams: [Rostering and coordination]
+    problem: Regions run short of workers on weekends and evenings.
+    approach: Forecast hours by region, time band and week from the delivered history.
+    measure: Unfilled shifts; overtime hours.
+    ai_role: A forecast, reviewed by the rostering leads.
+    risk_tier: Low
+    next: Needs a year of delivered history in the lakehouse first.
+    links: []

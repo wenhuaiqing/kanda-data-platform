@@ -1,0 +1,23 @@
+# A quarter of data enquiries to the data team (invented), each classified by
+# what it takes to answer: a published measure, an ad hoc query, or something
+# that needs building. The self-serve rate on the page is counted from this log.
+enquiries:
+  - {id: DQ-101, team: Finance, asked: "How much did we claim last quarter?", route: measure, answer: claim_value}
+  - {id: DQ-102, team: Finance, asked: "What share of services go through without anyone touching them?", route: measure, answer: claimable_rate}
+  - {id: DQ-103, team: Executive, asked: "How many services did we deliver?", route: measure, answer: services_delivered}
+  - {id: DQ-104, team: Finance, asked: "How much is sitting in held claims?", route: measure, answer: held_value}
+  - {id: DQ-105, team: Rostering, asked: "Are workers' check-ins arriving in time for the claim run?", route: measure, answer: evidence_on_time}
+  - {id: DQ-106, team: Executive, asked: "How many support hours did we deliver?", route: measure, answer: evidenced_hours}
+  - {id: DQ-107, team: Plan managers, asked: "How much of clients' budgets have we used?", route: measure, answer: budget_used}
+  - {id: DQ-108, team: Coordinators, asked: "Which regions have the most held services, and why?", route: query,
+     answer: "SELECT region, check_id, count(*) AS held, round(sum(amount)) AS value FROM exceptions GROUP BY 1, 2 ORDER BY 3 DESC LIMIT 15"}
+  - {id: DQ-109, team: Finance, asked: "Claimable value by month and funding?", route: query,
+     answer: "SELECT month, funding, round(sum(claim_amount)) AS claimable FROM fact_shift GROUP BY 1, 2 ORDER BY 1, 2"}
+  - {id: DQ-110, team: Rostering, asked: "Which time bands do we deliver most?", route: query,
+     answer: "SELECT time_band, count(*) AS services, round(sum(rostered_min) / 60.0) AS hours FROM fact_shift WHERE kind = 'service' GROUP BY 1 ORDER BY 2 DESC"}
+  - {id: DQ-111, team: Compliance, asked: "Which workers' screening expires in the next 90 days?", route: query,
+     answer: "SELECT worker_id, region, screening_expiry FROM dim_worker WHERE screening_expiry BETWEEN DATE '2026-10-01' AND DATE '2026-12-29' ORDER BY screening_expiry"}
+  - {id: DQ-112, team: Data platform, asked: "Which feeds broke their contract, and how?", route: query,
+     answer: "SELECT feed, rule, app_version, count(*) AS rows FROM quarantine GROUP BY 1, 2, 3 ORDER BY 4 DESC"}
+  - {id: DQ-113, team: Executive, asked: "What is our margin by region?", route: build, answer: "Needs payroll costs in the lakehouse; not landed yet."}
+  - {id: DQ-114, team: Quality, asked: "Which visit notes mention a fall?", route: build, answer: "A candidate-incident scan over masked notes (roadmap P-05), designed with the quality team first."}

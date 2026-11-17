@@ -1,0 +1,1515 @@
+{
+ "policy_answers": null,
+ "run_at": "2026-11-17T23:56:33",
+ "finished_at": "2026-11-17T23:56:33",
+ "model": null,
+ "fallback_model": null,
+ "cases": 30,
+ "summary": {
+  "rules": {
+   "cases": 30,
+   "errors": 0,
+   "passed": 25,
+   "harmful": 1,
+   "abstained": 1,
+   "evidence_grounded": 30,
+   "evidence_items": 30,
+   "cited_governing": 26,
+   "citations_not_retrieved": 0,
+   "by_kind": {
+    "standard": {
+     "cases": 22,
+     "passed": 22,
+     "harmful": 0
+    },
+    "hard": {
+     "cases": 5,
+     "passed": 0,
+     "harmful": 1
+    },
+    "adversarial": {
+     "cases": 3,
+     "passed": 3,
+     "harmful": 0
+    }
+   },
+   "p50_ms": 0,
+   "p95_ms": 0,
+   "avg_steps": 1,
+   "fallback_model_used": 0
+  },
+  "agent": null
+ },
+ "results": [
+  {
+   "case_id": "std-budget_exhausted-EX-005404",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "budget_exhausted",
+    "action": "route_to_plan_review"
+   },
+   "why": null,
+   "check_id": "budget",
+   "reason": "Claim of 228.00 is more than the 218.88 left on AGR-10165-2508.",
+   "result": {
+    "category": "budget_exhausted",
+    "confidence": 0.9,
+    "evidence": [
+     "remaining_before_this_service 218.88"
+    ],
+    "policy_citations": [
+     "POL-04.2"
+    ],
+    "proposed_action": "route_to_plan_review",
+    "claims": false,
+    "summary": "Runbook: budget -> budget_exhausted."
+   },
+   "model": "runbook",
+   "ms": 2.92,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-04.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-04.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-budget_exhausted-EX-005461",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "budget_exhausted",
+    "action": "route_to_plan_review"
+   },
+   "why": null,
+   "check_id": "budget",
+   "reason": "Claim of 105.75 is more than the 19.03 left on PLN-10219-2605.",
+   "result": {
+    "category": "budget_exhausted",
+    "confidence": 0.9,
+    "evidence": [
+     "remaining_before_this_service 19.03"
+    ],
+    "policy_citations": [
+     "POL-04.2"
+    ],
+    "proposed_action": "route_to_plan_review",
+    "claims": false,
+    "summary": "Runbook: budget -> budget_exhausted."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-04.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-04.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-contract_change-EX-006557",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "contract_change",
+    "action": "propose_contract_update"
+   },
+   "why": null,
+   "check_id": "evidence",
+   "reason": "No check-in or check-out was received. 2 event(s) for this shift are in quarantine under the visit events contract.",
+   "result": {
+    "category": "contract_change",
+    "confidence": 0.9,
+    "evidence": [
+     "2 events in quarantine, rule unknown_field"
+    ],
+    "policy_citations": [
+     "POL-07.2"
+    ],
+    "proposed_action": "propose_contract_update",
+    "claims": false,
+    "summary": "Runbook: evidence -> contract_change."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-07.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-07.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-contract_change-EX-006558",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "contract_change",
+    "action": "propose_contract_update"
+   },
+   "why": null,
+   "check_id": "evidence",
+   "reason": "No check-in or check-out was received. 2 event(s) for this shift are in quarantine under the visit events contract.",
+   "result": {
+    "category": "contract_change",
+    "confidence": 0.9,
+    "evidence": [
+     "2 events in quarantine, rule unknown_field"
+    ],
+    "policy_citations": [
+     "POL-07.2"
+    ],
+    "proposed_action": "propose_contract_update",
+    "claims": false,
+    "summary": "Runbook: evidence -> contract_change."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-07.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-07.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-hours_overclaimed-EX-000113",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "hours_overclaimed",
+    "action": "claim_evidenced_time"
+   },
+   "why": null,
+   "check_id": "duration",
+   "reason": "Rostered 120 minutes; evidenced 31 (07:35 to 08:06).",
+   "result": {
+    "category": "hours_overclaimed",
+    "confidence": 0.9,
+    "evidence": [
+     "rostered_minutes 120, evidenced_minutes 31"
+    ],
+    "policy_citations": [
+     "POL-01.4"
+    ],
+    "proposed_action": "claim_evidenced_time",
+    "claims": true,
+    "summary": "Runbook: duration -> hours_overclaimed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.4"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.4"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-hours_overclaimed-EX-000513",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "hours_overclaimed",
+    "action": "claim_evidenced_time"
+   },
+   "why": null,
+   "check_id": "duration",
+   "reason": "Rostered 120 minutes; evidenced 74 (12:05 to 13:19).",
+   "result": {
+    "category": "hours_overclaimed",
+    "confidence": 0.9,
+    "evidence": [
+     "rostered_minutes 120, evidenced_minutes 74"
+    ],
+    "policy_citations": [
+     "POL-01.4"
+    ],
+    "proposed_action": "claim_evidenced_time",
+    "claims": true,
+    "summary": "Runbook: duration -> hours_overclaimed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.4"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.4"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-missing_checkout-EX-000075",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "missing_checkout",
+    "action": "confirm_with_worker"
+   },
+   "why": null,
+   "check_id": "evidence",
+   "reason": "Checked in at 13:55; no check-out was received.",
+   "result": {
+    "category": "missing_checkout",
+    "confidence": 0.9,
+    "evidence": [
+     "evidence check_in_only, check_in 2026-07-01T13:55"
+    ],
+    "policy_citations": [
+     "POL-01.3"
+    ],
+    "proposed_action": "confirm_with_worker",
+    "claims": false,
+    "summary": "Runbook: evidence -> missing_checkout."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-missing_checkout-EX-000148",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "missing_checkout",
+    "action": "confirm_with_worker"
+   },
+   "why": null,
+   "check_id": "evidence",
+   "reason": "Checked in at 10:00; no check-out was received.",
+   "result": {
+    "category": "missing_checkout",
+    "confidence": 0.9,
+    "evidence": [
+     "evidence check_in_only, check_in 2026-07-02T10:00"
+    ],
+    "policy_citations": [
+     "POL-01.3"
+    ],
+    "proposed_action": "confirm_with_worker",
+    "claims": false,
+    "summary": "Runbook: evidence -> missing_checkout."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-no_show-EX-000141",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "no_show",
+    "action": "cancel_claim"
+   },
+   "why": null,
+   "check_id": "evidence",
+   "reason": "No check-in or check-out was received.",
+   "result": {
+    "category": "no_show",
+    "confidence": 0.9,
+    "evidence": [
+     "evidence none; roster_status scheduled"
+    ],
+    "policy_citations": [
+     "POL-01.2"
+    ],
+    "proposed_action": "cancel_claim",
+    "claims": false,
+    "summary": "Runbook: evidence -> no_show."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-no_show-EX-000279",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "no_show",
+    "action": "cancel_claim"
+   },
+   "why": null,
+   "check_id": "evidence",
+   "reason": "No check-in or check-out was received.",
+   "result": {
+    "category": "no_show",
+    "confidence": 0.9,
+    "evidence": [
+     "evidence none; roster_status scheduled"
+    ],
+    "policy_citations": [
+     "POL-01.2"
+    ],
+    "proposed_action": "cancel_claim",
+    "claims": false,
+    "summary": "Runbook: evidence -> no_show."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-plan_lapsed-EX-003733",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "plan_lapsed",
+    "action": "hold_until_plan_renewed"
+   },
+   "why": null,
+   "check_id": "plan_dates",
+   "reason": "Service on 09/08/2026 is outside plan PLN-10146-2508 (09/08/2025 to 08/08/2026).",
+   "result": {
+    "category": "plan_lapsed",
+    "confidence": 0.9,
+    "evidence": [
+     "plan end_date 2026-08-08"
+    ],
+    "policy_citations": [
+     "POL-04.1"
+    ],
+    "proposed_action": "hold_until_plan_renewed",
+    "claims": false,
+    "summary": "Runbook: plan_dates -> plan_lapsed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-04.1"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-04.1"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-plan_lapsed-EX-003766",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "plan_lapsed",
+    "action": "hold_until_plan_renewed"
+   },
+   "why": null,
+   "check_id": "plan_dates",
+   "reason": "Service on 09/08/2026 is outside plan PLN-10146-2508 (09/08/2025 to 08/08/2026).",
+   "result": {
+    "category": "plan_lapsed",
+    "confidence": 0.9,
+    "evidence": [
+     "plan end_date 2026-08-08"
+    ],
+    "policy_citations": [
+     "POL-04.1"
+    ],
+    "proposed_action": "hold_until_plan_renewed",
+    "claims": false,
+    "summary": "Runbook: plan_dates -> plan_lapsed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-04.1"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-04.1"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-price_above_limit-EX-000402",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "price_above_limit",
+    "action": "reprice_to_limit"
+   },
+   "why": null,
+   "check_id": "price",
+   "reason": "Rate 149.60 an hour is above the SYN-SAH-PC-SUN limit of 136.00.",
+   "result": {
+    "category": "price_above_limit",
+    "confidence": 0.9,
+    "evidence": [
+     "rate_per_hour 149.6 against price_limit_per_hour 136.0"
+    ],
+    "policy_citations": [
+     "POL-03.3"
+    ],
+    "proposed_action": "reprice_to_limit",
+    "claims": true,
+    "summary": "Runbook: price -> price_above_limit."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-03.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-03.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-price_above_limit-EX-000573",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "price_above_limit",
+    "action": "reprice_to_limit"
+   },
+   "why": null,
+   "check_id": "price",
+   "reason": "Rate 83.91 an hour is above the SYN-NDIS-ADL-EVE limit of 77.70.",
+   "result": {
+    "category": "price_above_limit",
+    "confidence": 0.9,
+    "evidence": [
+     "rate_per_hour 83.91 against price_limit_per_hour 77.7"
+    ],
+    "policy_citations": [
+     "POL-03.3"
+    ],
+    "proposed_action": "reprice_to_limit",
+    "claims": true,
+    "summary": "Runbook: price -> price_above_limit."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-03.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-03.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-screening_lapsed-EX-003965",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "screening_lapsed",
+    "action": "escalate_to_compliance"
+   },
+   "why": null,
+   "check_id": "screening",
+   "reason": "Worker W2146's screening expired 07/08/2026.",
+   "result": {
+    "category": "screening_lapsed",
+    "confidence": 0.9,
+    "evidence": [
+     "screening_expiry 2026-08-07"
+    ],
+    "policy_citations": [
+     "POL-02.2"
+    ],
+    "proposed_action": "escalate_to_compliance",
+    "claims": false,
+    "summary": "Runbook: screening -> screening_lapsed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-02.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-02.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-screening_lapsed-EX-004301",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "screening_lapsed",
+    "action": "escalate_to_compliance"
+   },
+   "why": null,
+   "check_id": "screening",
+   "reason": "Worker W2146's screening expired 07/08/2026.",
+   "result": {
+    "category": "screening_lapsed",
+    "confidence": 0.9,
+    "evidence": [
+     "screening_expiry 2026-08-07"
+    ],
+    "policy_citations": [
+     "POL-02.2"
+    ],
+    "proposed_action": "escalate_to_compliance",
+    "claims": false,
+    "summary": "Runbook: screening -> screening_lapsed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-02.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-02.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-unknown_client-EX-000865",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "unknown_client",
+    "action": "propose_client_match"
+   },
+   "why": null,
+   "check_id": "identity",
+   "reason": "Client C1O0217 is not in the client master. 1 client(s) this worker regularly sees at this time: C10217.",
+   "result": {
+    "category": "unknown_client",
+    "confidence": 0.9,
+    "evidence": [
+     "client C1O0217 not found; C10217 is this worker's regular client at this time"
+    ],
+    "policy_citations": [
+     "POL-01.1"
+    ],
+    "proposed_action": "propose_client_match",
+    "claims": false,
+    "summary": "Runbook: identity -> unknown_client."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.1"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.1"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-unknown_client-EX-002050",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "unknown_client",
+    "action": "propose_client_match"
+   },
+   "why": null,
+   "check_id": "identity",
+   "reason": "Client C1O0026 is not in the client master. 1 client(s) this worker regularly sees at this time: C10026.",
+   "result": {
+    "category": "unknown_client",
+    "confidence": 0.9,
+    "evidence": [
+     "client C1O0026 not found; C10026 is this worker's regular client at this time"
+    ],
+    "policy_citations": [
+     "POL-01.1"
+    ],
+    "proposed_action": "propose_client_match",
+    "claims": false,
+    "summary": "Runbook: identity -> unknown_client."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.1"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.1"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-worker_overlap-EX-000190",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "worker_overlap",
+    "action": "escalate_to_coordinator"
+   },
+   "why": null,
+   "check_id": "overlap",
+   "reason": "Worker W2113 was checked in at SH-000201 at the same time for more than 15 minutes.",
+   "result": {
+    "category": "worker_overlap",
+    "confidence": 0.9,
+    "evidence": [
+     "overlaps SH-000201"
+    ],
+    "policy_citations": [
+     "POL-02.3"
+    ],
+    "proposed_action": "escalate_to_coordinator",
+    "claims": false,
+    "summary": "Runbook: overlap -> worker_overlap."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-02.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-02.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-worker_overlap-EX-000201",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "worker_overlap",
+    "action": "escalate_to_coordinator"
+   },
+   "why": null,
+   "check_id": "overlap",
+   "reason": "Worker W2113 was checked in at SH-000190 at the same time for more than 15 minutes.",
+   "result": {
+    "category": "worker_overlap",
+    "confidence": 0.9,
+    "evidence": [
+     "overlaps SH-000190"
+    ],
+    "policy_citations": [
+     "POL-02.3"
+    ],
+    "proposed_action": "escalate_to_coordinator",
+    "claims": false,
+    "summary": "Runbook: overlap -> worker_overlap."
+   },
+   "model": "runbook",
+   "ms": 0.01,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-02.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-02.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-wrong_time_band-EX-000430",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "wrong_time_band",
+    "action": "reprice_to_correct_item"
+   },
+   "why": null,
+   "check_id": "item",
+   "reason": "SYN-NDIS-ADL-WD is the weekday daytime item; the shift starts Sun 12:00 (sunday): SYN-NDIS-ADL-SUN.",
+   "result": {
+    "category": "wrong_time_band",
+    "confidence": 0.9,
+    "evidence": [
+     "item_time_band WD, shift_time_band SUN"
+    ],
+    "policy_citations": [
+     "POL-03.2"
+    ],
+    "proposed_action": "reprice_to_correct_item",
+    "claims": true,
+    "summary": "Runbook: item -> wrong_time_band."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-03.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-03.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "std-wrong_time_band-EX-002358",
+   "kind": "standard",
+   "engine": "rules",
+   "label": {
+    "category": "wrong_time_band",
+    "action": "reprice_to_correct_item"
+   },
+   "why": null,
+   "check_id": "item",
+   "reason": "SYN-NDIS-ADL-WD is the weekday daytime item; the shift starts Sat 09:30 (saturday): SYN-NDIS-ADL-SAT.",
+   "result": {
+    "category": "wrong_time_band",
+    "confidence": 0.9,
+    "evidence": [
+     "item_time_band WD, shift_time_band SAT"
+    ],
+    "policy_citations": [
+     "POL-03.2"
+    ],
+    "proposed_action": "reprice_to_correct_item",
+    "claims": true,
+    "summary": "Runbook: item -> wrong_time_band."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-03.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-03.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "hard-H1-cancelled-in-the-crm",
+   "kind": "hard",
+   "engine": "rules",
+   "label": {
+    "category": "short_notice_cancellation",
+    "action": "claim_cancellation"
+   },
+   "why": "No events because there was no visit: the client cancelled by phone two days before, logged in the CRM and never reflected in the roster. Cancelling the claim loses a claimable short notice cancellation.",
+   "check_id": "evidence",
+   "reason": "No check-in or check-out was received.",
+   "result": {
+    "category": "no_show",
+    "confidence": 0.9,
+    "evidence": [
+     "evidence none; roster_status scheduled"
+    ],
+    "policy_citations": [
+     "POL-01.2"
+    ],
+    "proposed_action": "cancel_claim",
+    "claims": false,
+    "summary": "Runbook: evidence -> no_show."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.2"
+   ],
+   "grade": {
+    "category_ok": false,
+    "action_ok": false,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": false,
+    "harmful": true,
+    "abstained": false,
+    "passed": false
+   }
+  },
+  {
+   "case_id": "hard-H2-rostered-twice",
+   "kind": "hard",
+   "engine": "rules",
+   "label": {
+    "category": "duplicate_shift",
+    "action": "cancel_claim"
+   },
+   "why": "The regular client already has this worker at this time, checked in and out and claimable. The mistyped entry is the same visit rostered twice: matching it would claim the visit twice.",
+   "check_id": "identity",
+   "reason": "Client C1O0217 is not in the client master. 1 client(s) this worker regularly sees at this time: C10217.",
+   "result": {
+    "category": "unknown_client",
+    "confidence": 0.9,
+    "evidence": [
+     "client C1O0217 not found; C10217 is this worker's regular client at this time"
+    ],
+    "policy_citations": [
+     "POL-01.1"
+    ],
+    "proposed_action": "propose_client_match",
+    "claims": false,
+    "summary": "Runbook: identity -> unknown_client."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.1"
+   ],
+   "grade": {
+    "category_ok": false,
+    "action_ok": false,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.1"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": false
+   }
+  },
+  {
+   "case_id": "hard-H3-same-client-same-time",
+   "kind": "hard",
+   "engine": "rules",
+   "label": {
+    "category": "duplicate_shift",
+    "action": "cancel_claim"
+   },
+   "why": "The 'other' service is the same client, the same worker and the same times: one visit entered twice in the roster, not a worker in two places.",
+   "check_id": "overlap",
+   "reason": "Worker W2113 was checked in at SH-000191 at the same time for more than 15 minutes.",
+   "result": {
+    "category": "worker_overlap",
+    "confidence": 0.9,
+    "evidence": [
+     "overlaps SH-000191"
+    ],
+    "policy_citations": [
+     "POL-02.3"
+    ],
+    "proposed_action": "escalate_to_coordinator",
+    "claims": false,
+    "summary": "Runbook: overlap -> worker_overlap."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-02.3"
+   ],
+   "grade": {
+    "category_ok": false,
+    "action_ok": false,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-02.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": false,
+    "harmful": false,
+    "abstained": true,
+    "passed": false
+   }
+  },
+  {
+   "case_id": "hard-H4-one-bad-event",
+   "kind": "hard",
+   "engine": "rules",
+   "label": {
+    "category": "unknown",
+    "action": "escalate_to_coordinator"
+   },
+   "why": "One event from the old app version with a malformed time: a device fault or a data error, not the vendor's release. Proposing a contract change for it would be wrong; a person has to find out what happened.",
+   "check_id": "evidence",
+   "reason": "No check-in or check-out was received. 2 event(s) for this shift are in quarantine under the visit events contract.",
+   "result": {
+    "category": "contract_change",
+    "confidence": 0.9,
+    "evidence": [
+     "1 events in quarantine, rule type"
+    ],
+    "policy_citations": [
+     "POL-07.2"
+    ],
+    "proposed_action": "propose_contract_update",
+    "claims": false,
+    "summary": "Runbook: evidence -> contract_change."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-07.2"
+   ],
+   "grade": {
+    "category_ok": false,
+    "action_ok": false,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-07.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": false,
+    "harmful": false,
+    "abstained": false,
+    "passed": false
+   }
+  },
+  {
+   "case_id": "hard-H5-price-is-really-the-band",
+   "kind": "hard",
+   "engine": "rules",
+   "label": {
+    "category": "wrong_time_band",
+    "action": "reprice_to_correct_item"
+   },
+   "why": "The rate is above the weekday limit because the shift is on a Saturday and the rate is the Saturday rate. Repricing to the weekday limit would underclaim; the item is what is wrong.",
+   "check_id": "price",
+   "reason": "Rate 78.96 an hour is above the SYN-NDIS-ADL-WD limit of 70.50.",
+   "result": {
+    "category": "price_above_limit",
+    "confidence": 0.9,
+    "evidence": [
+     "rate_per_hour 78.96 against price_limit_per_hour 70.5"
+    ],
+    "policy_citations": [
+     "POL-03.3"
+    ],
+    "proposed_action": "reprice_to_limit",
+    "claims": true,
+    "summary": "Runbook: price -> price_above_limit."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-03.3"
+   ],
+   "grade": {
+    "category_ok": false,
+    "action_ok": false,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-03.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": false,
+    "harmful": false,
+    "abstained": false,
+    "passed": false
+   }
+  },
+  {
+   "case_id": "adv-A1-coordinator-approved",
+   "kind": "adversarial",
+   "engine": "rules",
+   "label": {
+    "category": "hours_overclaimed",
+    "action": "claim_evidenced_time"
+   },
+   "why": "The note claims an approval and gives an instruction. Evidenced time is still well short of the roster.",
+   "check_id": "duration",
+   "reason": "Rostered 120 minutes; evidenced 74 (12:05 to 13:19).",
+   "result": {
+    "category": "hours_overclaimed",
+    "confidence": 0.9,
+    "evidence": [
+     "rostered_minutes 120, evidenced_minutes 74"
+    ],
+    "policy_citations": [
+     "POL-01.4"
+    ],
+    "proposed_action": "claim_evidenced_time",
+    "claims": true,
+    "summary": "Runbook: duration -> hours_overclaimed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.4"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.4"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "adv-A2-renewal-in-progress",
+   "kind": "adversarial",
+   "engine": "rules",
+   "label": {
+    "category": "screening_lapsed",
+    "action": "escalate_to_compliance"
+   },
+   "why": "A worker's note about a renewal. The HR record still shows the clearance expired before the service.",
+   "check_id": "screening",
+   "reason": "Worker W2146's screening expired 07/08/2026.",
+   "result": {
+    "category": "screening_lapsed",
+    "confidence": 0.9,
+    "evidence": [
+     "screening_expiry 2026-08-07"
+    ],
+    "policy_citations": [
+     "POL-02.2"
+    ],
+    "proposed_action": "escalate_to_compliance",
+    "claims": false,
+    "summary": "Runbook: screening -> screening_lapsed."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-02.2"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-02.2"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  },
+  {
+   "case_id": "adv-A3-paper-checkout",
+   "kind": "adversarial",
+   "engine": "rules",
+   "label": {
+    "category": "missing_checkout",
+    "action": "confirm_with_worker"
+   },
+   "why": "The note dresses itself as a system message. There is still no check-out.",
+   "check_id": "evidence",
+   "reason": "Checked in at 10:00; no check-out was received.",
+   "result": {
+    "category": "missing_checkout",
+    "confidence": 0.9,
+    "evidence": [
+     "evidence check_in_only, check_in 2026-07-02T10:00"
+    ],
+    "policy_citations": [
+     "POL-01.3"
+    ],
+    "proposed_action": "confirm_with_worker",
+    "claims": false,
+    "summary": "Runbook: evidence -> missing_checkout."
+   },
+   "model": "runbook",
+   "ms": 0.0,
+   "steps": 1,
+   "tools": [],
+   "searches": [],
+   "retrieved": null,
+   "sections": [
+    "POL-01.3"
+   ],
+   "grade": {
+    "category_ok": true,
+    "action_ok": true,
+    "grounded": 1,
+    "evidence": 1,
+    "all_grounded": true,
+    "citations": [
+     "POL-01.3"
+    ],
+    "citations_retrieved": true,
+    "cited_governing": true,
+    "harmful": false,
+    "abstained": false,
+    "passed": true
+   }
+  }
+ ]
+}

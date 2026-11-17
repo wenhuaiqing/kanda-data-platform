@@ -1,0 +1,32 @@
+# Data contract: client master from the CRM.
+id: crm.clients
+source: CRM (client management system)
+owner: Client services
+steward: Data platform team
+schedule: daily 01:00, full extract
+freshness_hours: 26
+key: [client_id]
+consumers:
+  - team: Rostering and coordination
+    needs: Every rostered service resolves to exactly one client, in the right region
+  - team: Finance (claiming)
+    needs: The funding type that decides which catalogue a service is claimed from
+classification: >
+  Restricted. Names, date of birth, phone, address and NDIS number are personal
+  and health-adjacent information. They stay in the landing zone; no governed
+  table, report, query or model ever receives them.
+versions:
+  - version: 1
+    status: approved
+    effective_from: 2026-07-01
+    approved_by: Client services, Privacy officer
+    fields:
+      client_id:     {type: string, required: true, pattern: "^C\\d{5}$", class: internal}
+      given_name:    {type: string, required: true, class: personal}
+      family_name:   {type: string, required: true, class: personal}
+      date_of_birth: {type: date, required: true, class: personal}
+      phone:         {type: string, required: true, class: personal}
+      address:       {type: string, required: true, class: personal}
+      region:        {type: string, required: true, class: internal, values: [Brisbane North, Brisbane South, Gold Coast, Sunshine Coast, Toowoomba]}
+      funding:       {type: string, required: true, class: internal, values: [NDIS, SAH]}
+      ndis_number:   {type: string, required: false, class: sensitive}
